@@ -77,38 +77,147 @@ const Index = () => {
     <div className="min-h-screen bg-background">
       {/* Hero Section */}
       <div className="relative overflow-hidden bg-gradient-to-br from-primary/5 via-background to-accent/5">
-        <div className="container mx-auto px-4 py-16 lg:py-24">
-          <div className="text-center max-w-4xl mx-auto">
-            <Badge className="mb-4 bg-accent/10 text-accent-foreground border-accent/20">
-              <Zap className="w-3 h-3 mr-1" />
-              Snabb & Professionell IT-Support
+        <div className="absolute inset-0 bg-grid-pattern opacity-5"></div>
+        <div className="container mx-auto px-4 py-20 lg:py-32">
+          <div className="text-center max-w-5xl mx-auto">
+            <Badge className="mb-6 bg-accent/10 text-accent-foreground border-accent/20 text-sm px-4 py-2">
+              <Zap className="w-4 h-4 mr-2" />
+              Tillgänglig 24/7 - Snabb & Professionell IT-Support
             </Badge>
             
-            <h1 className="text-4xl lg:text-6xl font-bold mb-6 bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">
+            <h1 className="text-5xl lg:text-7xl font-bold mb-8 bg-gradient-to-r from-primary via-accent to-primary bg-clip-text text-transparent leading-tight">
               TechRescue
             </h1>
             
-            <p className="text-xl lg:text-2xl text-muted-foreground mb-8 leading-relaxed">
-              Vi räddar din teknik när den behöver det som mest. 
-              Professionell IT-support för hem och småföretag.
+            <p className="text-2xl lg:text-3xl text-foreground mb-6 leading-relaxed font-medium">
+              Vi räddar din teknik när den krånglar
             </p>
             
-            <div className="flex flex-wrap justify-center gap-6 text-sm text-muted-foreground">
-              <div className="flex items-center">
-                <Clock className="w-4 h-4 mr-2 text-accent" />
-                Snabb respons
+            <p className="text-lg lg:text-xl text-muted-foreground mb-12 leading-relaxed max-w-3xl mx-auto">
+              Över 15 års erfarenhet av IT-support för hem och företag. Våra certifierade tekniker 
+              löser dina problem snabbt och effektivt - på plats, via fjärranslutning eller i vår verkstad.
+              Ingen teknisk utmaning är för stor eller för liten.
+            </p>
+            
+            <div className="grid grid-cols-2 lg:grid-cols-4 gap-8 mb-12">
+              <div className="flex flex-col items-center p-6 rounded-lg bg-card/50 border">
+                <Clock className="w-8 h-8 mb-3 text-accent" />
+                <span className="font-semibold text-lg">Samma dag</span>
+                <span className="text-sm text-muted-foreground">Snabb respons</span>
               </div>
-              <div className="flex items-center">
-                <Shield className="w-4 h-4 mr-2 text-accent" />
-                Säker hantering
+              <div className="flex flex-col items-center p-6 rounded-lg bg-card/50 border">
+                <Shield className="w-8 h-8 mb-3 text-accent" />
+                <span className="font-semibold text-lg">100% säkert</span>
+                <span className="text-sm text-muted-foreground">Trygg hantering</span>
               </div>
-              <div className="flex items-center">
-                <Award className="w-4 h-4 mr-2 text-accent" />
-                Certifierade tekniker
+              <div className="flex flex-col items-center p-6 rounded-lg bg-card/50 border">
+                <Award className="w-8 h-8 mb-3 text-accent" />
+                <span className="font-semibold text-lg">Certifierat</span>
+                <span className="text-sm text-muted-foreground">Expert-tekniker</span>
               </div>
-              <div className="flex items-center">
-                <Users className="w-4 h-4 mr-2 text-accent" />
-                500+ nöjda kunder
+              <div className="flex flex-col items-center p-6 rounded-lg bg-card/50 border">
+                <Users className="w-8 h-8 mb-3 text-accent" />
+                <span className="font-semibold text-lg">500+ kunder</span>
+                <span className="text-sm text-muted-foreground">Nöjda användare</span>
+              </div>
+            </div>
+
+            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+              <Button size="lg" className="text-lg px-8 py-6">
+                Se våra tjänster
+              </Button>
+              <Button variant="outline" size="lg" className="text-lg px-8 py-6">
+                Ring för akut hjälp: 08-123 456 78
+              </Button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* About Section */}
+      <div className="py-20 bg-muted/20">
+        <div className="container mx-auto px-4">
+          <div className="max-w-6xl mx-auto">
+            <div className="text-center mb-16">
+              <h2 className="text-3xl lg:text-4xl font-bold mb-6">
+                Varför välja TechRescue?
+              </h2>
+              <p className="text-lg text-muted-foreground max-w-3xl mx-auto">
+                Vi förstår hur frustrerande det kan vara när tekniken inte fungerar. 
+                Därför erbjuder vi snabb, pålitlig och prisvärd IT-support som fungerar.
+              </p>
+            </div>
+
+            <div className="grid lg:grid-cols-2 gap-12 items-center">
+              <div className="space-y-8">
+                <div className="flex gap-4">
+                  <div className="flex-shrink-0 w-12 h-12 bg-accent/10 rounded-lg flex items-center justify-center">
+                    <Computer className="w-6 h-6 text-accent" />
+                  </div>
+                  <div>
+                    <h3 className="text-xl font-semibold mb-2">Bred expertis</h3>
+                    <p className="text-muted-foreground">
+                      Från enkla datorproblem till komplexa nätverkslösningar - vi har kunskap 
+                      inom alla områden av modern IT.
+                    </p>
+                  </div>
+                </div>
+
+                <div className="flex gap-4">
+                  <div className="flex-shrink-0 w-12 h-12 bg-accent/10 rounded-lg flex items-center justify-center">
+                    <Zap className="w-6 h-6 text-accent" />
+                  </div>
+                  <div>
+                    <h3 className="text-xl font-semibold mb-2">Snabba lösningar</h3>
+                    <p className="text-muted-foreground">
+                      Majoriteten av alla problem löser vi inom samma dag. Akut support 
+                      finns tillgänglig dygnet runt.
+                    </p>
+                  </div>
+                </div>
+
+                <div className="flex gap-4">
+                  <div className="flex-shrink-0 w-12 h-12 bg-accent/10 rounded-lg flex items-center justify-center">
+                    <Shield className="w-6 h-6 text-accent" />
+                  </div>
+                  <div>
+                    <h3 className="text-xl font-semibold mb-2">Trygg hantering</h3>
+                    <p className="text-muted-foreground">
+                      All data hanteras med största säkerhet. Vi är GDPR-certifierade 
+                      och arbetar enligt branschens högsta säkerhetsstandarder.
+                    </p>
+                  </div>
+                </div>
+              </div>
+
+              <div className="bg-gradient-to-br from-primary/5 to-accent/5 rounded-2xl p-8 border">
+                <h3 className="text-2xl font-bold mb-6 text-center">Vårt löfte till dig</h3>
+                <div className="space-y-4">
+                  <div className="flex items-center gap-3">
+                    <div className="w-6 h-6 bg-accent rounded-full flex items-center justify-center">
+                      <span className="text-accent-foreground text-sm">✓</span>
+                    </div>
+                    <span>Fast pris - inga dolda kostnader</span>
+                  </div>
+                  <div className="flex items-center gap-3">
+                    <div className="w-6 h-6 bg-accent rounded-full flex items-center justify-center">
+                      <span className="text-accent-foreground text-sm">✓</span>
+                    </div>
+                    <span>30 dagars garanti på alla reparationer</span>
+                  </div>
+                  <div className="flex items-center gap-3">
+                    <div className="w-6 h-6 bg-accent rounded-full flex items-center justify-center">
+                      <span className="text-accent-foreground text-sm">✓</span>
+                    </div>
+                    <span>Kostnadsfri konsultation och offert</span>
+                  </div>
+                  <div className="flex items-center gap-3">
+                    <div className="w-6 h-6 bg-accent rounded-full flex items-center justify-center">
+                      <span className="text-accent-foreground text-sm">✓</span>
+                    </div>
+                    <span>Support även efter avslutad tjänst</span>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
