@@ -12,9 +12,50 @@ dist
 dist-ssr
 *.local
 
-# Next.js
+# Next.js build outputs and cache
 .next/
 out/
+trace
+*.trace
+
+# All Next.js cache and build artifacts
+.next/**
+!.next/types/**
+
+# Webpack specific files
+*.pack.gz
+*.pack.gz.old
+
+# Build outputs
+build/
+dist/
+
+# Runtime data
+pids
+*.pid
+*.seed
+*.pid.lock
+
+# Optional npm cache directory
+.npm
+
+# Optional REPL history
+.node_repl_history
+
+# Output of 'npm pack'
+*.tgz
+
+# Yarn Integrity file
+.yarn-integrity
+
+# dotenv environment variables file
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# Turborepo
+.turbo
 
 # Sanity
 .sanity/

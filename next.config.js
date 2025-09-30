@@ -18,12 +18,14 @@ const nextConfig = {
       config.watchOptions = {
         ...config.watchOptions,
         ignored: [
-          ...(Array.isArray(config.watchOptions?.ignored) ? config.watchOptions.ignored : []),
-          /app\/studio/,
-          /sanity\.config\.ts/,
-          /sanity\/schemas/
+          '**/node_modules',
+          '**/app/studio/**',
+          '**/sanity.config.ts',
+          '**/sanity/schemas/**'
         ]
       }
+      // Disable persistent caching in development to avoid cache file commits
+      config.cache = false
     }
     return config
   },
