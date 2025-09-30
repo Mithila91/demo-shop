@@ -1,57 +1,70 @@
 'use client'
 
 import { ServiceCard } from "@/app/components/ServiceCard"
-
-const services = [
-  {
-    id: 1,
-    title: "Akut IT-Support",
-    description: "Snabb hjälp när din teknik krånglar. Vi löser problemet på plats eller via fjärranslutning.",
-    price: "695 kr",
-    duration: "1-3 timmar",
-    features: [
-      "Samma dag service",
-      "På plats eller fjärranslutning", 
-      "Alla vanliga IT-problem",
-      "Ingen startkostnad"
-    ],
-    popular: true
-  },
-  {
-    id: 2,
-    title: "Datorservice & Reparation",
-    description: "Fullständig service av din dator. Vi fixar hårdvara, installerar program och optimerar prestanda.",
-    price: "495 kr",
-    duration: "2-5 dagar",
-    features: [
-      "Hårdvaru- och mjukvaruservice",
-      "Prestandaoptimering",
-      "Viruskontroll & säkerhet",
-      "Gratis hämtning & leverans"
-    ]
-  },
-  {
-    id: 3,
-    title: "Hemmanätverk & WiFi",
-    description: "Installation och optimering av hemmanätverk. Få bästa möjliga WiFi-täckning i hela hemmet.",
-    price: "895 kr",
-    duration: "2-4 timmar",
-    features: [
-      "WiFi-täckning hela hemmet",
-      "Säker nätverkskonfiguration", 
-      "Smart hem-integration",
-      "3 månaders support inkluderat"
-    ]
-  }
-]
+import { Service } from "@/app/lib/sanity"
 
 interface ServicesSectionProps {
-  onServiceSelect: (service: typeof services[0]) => void
+  services?: Service[]
+  onServiceSelect: (service: Service) => void
 }
 
-export function ServicesSection({ onServiceSelect }: ServicesSectionProps) {
+export function ServicesSection({ services, onServiceSelect }: ServicesSectionProps) {
+  // Fallback data if no Sanity data is available
+  const fallbackServices: Service[] = [
+    {
+      _id: '1',
+      title: "Akut IT-Support",
+      description: "Snabb hjälp när din teknik krånglar. Vi löser problemet på plats eller via fjärranslutning.",
+      price: "695 kr",
+      duration: "1-3 timmar",
+      features: [
+        "Samma dag service",
+        "På plats eller fjärranslutning", 
+        "Alla vanliga IT-problem",
+        "Ingen startkostnad"
+      ],
+      popular: true,
+      order: 1,
+      slug: { current: 'akut-it-support' }
+    },
+    {
+      _id: '2',
+      title: "Datorservice & Reparation",
+      description: "Fullständig service av din dator. Vi fixar hårdvara, installerar program och optimerar prestanda.",
+      price: "495 kr",
+      duration: "2-5 dagar",
+      features: [
+        "Hårdvaru- och mjukvaruservice",
+        "Prestandaoptimering",
+        "Viruskontroll & säkerhet",
+        "Gratis hämtning & leverans"
+      ],
+      popular: false,
+      order: 2,
+      slug: { current: 'datorservice-reparation' }
+    },
+    {
+      _id: '3',
+      title: "Hemmanätverk & WiFi",
+      description: "Installation och optimering av hemmanätverk. Få bästa möjliga WiFi-täckning i hela hemmet.",
+      price: "895 kr",
+      duration: "2-4 timmar",
+      features: [
+        "WiFi-täckning hela hemmet",
+        "Säker nätverkskonfiguration", 
+        "Smart hem-integration",
+        "3 månaders support inkluderat"
+      ],
+      popular: false,
+      order: 3,
+      slug: { current: 'hemmanatwerk-wifi' }
+    }
+  ]
+
+  const data = services && services.length > 0 ? services : fallbackServices
+
   return (
-    <section className="container mx-auto px-4 py-16">
+    <section id="services" className="container mx-auto px-4 py-16">
       <header className="text-center mb-12">
         <h2 className="text-3xl lg:text-4xl font-bold mb-4">
           Våra Tjänster
@@ -63,9 +76,9 @@ export function ServicesSection({ onServiceSelect }: ServicesSectionProps) {
       </header>
 
       <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
-        {services.map((service) => (
+        {data.map((service) => (
           <ServiceCard
-            key={service.id}
+            key={service._id}
             title={service.title}
             description={service.description}
             price={service.price}
