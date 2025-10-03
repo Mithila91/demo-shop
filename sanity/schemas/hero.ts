@@ -24,6 +24,23 @@ export const hero = defineType({
       rows: 4,
     }),
     defineField({
+      name: 'headerColor',
+      title: 'Header Color',
+      type: 'string',
+      description: 'Controls the gradient color theme used in the header background',
+      options: {
+        list: [
+          { title: 'Primary', value: 'primary' },
+          { title: 'Accent', value: 'accent' },
+          { title: 'Secondary', value: 'secondary' },
+          { title: 'Muted', value: 'muted' },
+          { title: 'Background', value: 'background' },
+        ],
+        layout: 'dropdown'
+      },
+      initialValue: 'primary'
+    }),
+    defineField({
       name: 'badge',
       title: 'Top Badge',
       type: 'object',

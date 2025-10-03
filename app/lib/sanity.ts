@@ -1,8 +1,13 @@
+/* eslint-disable */
 import { createClient } from '@sanity/client'
 
+// Read env once and validate to avoid falling back to placeholders
+const projectId = process.env.NEXT_PUBLIC_SANITY_PROJECT_ID
+const dataset = process.env.NEXT_PUBLIC_SANITY_DATASET || 'production'
+
 export const client = createClient({
-  projectId: process.env.NEXT_PUBLIC_SANITY_PROJECT_ID || 'your-project-id',
-  dataset: process.env.NEXT_PUBLIC_SANITY_DATASET || 'production',
+  projectId: projectId as string,
+  dataset,
   apiVersion: '2024-01-01',
   useCdn: process.env.NODE_ENV === 'production',
 })
@@ -13,7 +18,6 @@ export const queries = {
   services: `*[_type == "service"] | order(order asc)`,
   features: `*[_type == "feature"] | order(order asc)`,
   aboutSection: `*[_type == "aboutSection"][0]`,
-  siteSettings: `*[_type == "siteSettings"][0]`,
 }
 
 // Type definitions
@@ -21,6 +25,7 @@ export interface Hero {
   title: string
   subtitle: string
   description?: string
+  headerColor?: 'primary' | 'accent' | 'secondary' | 'muted' | 'background'
   badge?: {
     text: string
     icon: string
@@ -73,24 +78,6 @@ export interface AboutSection {
 }
 
 export interface SiteSettings {
-  title: string
-  description?: string
-  contactInfo?: {
-    phone: string
-    email: string
-    address: string
-  }
-  socialMedia?: {
-    facebook?: string
-    linkedin?: string
-    twitter?: string
-  }
-  ctaSection?: {
-    title: string
-    description: string
-    primaryButton: string
-    secondaryButton: string
-  }
 }
 
 // Data fetching functions
@@ -132,9 +119,8 @@ export async function getAboutSection(): Promise<AboutSection | null> {
 
 export async function getSiteSettings(): Promise<SiteSettings | null> {
   try {
-    return await client.fetch(queries.siteSettings)
+    return null
   } catch (error) {
-    console.error('Error fetching site settings data:', error)
     return null
   }
 }

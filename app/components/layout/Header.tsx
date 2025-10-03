@@ -1,3 +1,4 @@
+
 import { Badge } from "@/app/components/ui/badge"
 import { Button } from "@/app/components/ui/button"
 import { DynamicIcon } from "@/app/lib/icons"
@@ -44,8 +45,20 @@ export function Header({ heroData }: HeaderProps) {
     }
   }
 
+  const headerColor = heroData?.headerColor || 'primary'
+
+  const gradientByColor: Record<string, string> = {
+    primary: 'from-primary/20 via-background to-primary/40',
+    accent: 'from-accent/20 via-background to-accent/40',
+    secondary: 'from-secondary/20 via-background to-secondary/40',
+    muted: 'from-muted/20 via-background to-muted/40',
+    background: 'from-background/20 via-background to-foreground/10',
+  }
+
+  const gradientClasses = gradientByColor[headerColor] || gradientByColor.primary
+
   return (
-    <header className="relative overflow-hidden bg-gradient-to-br from-primary/5 via-background to-accent/5">
+    <header className={`relative overflow-hidden bg-gradient-to-br ${gradientClasses}`}>
       <div className="absolute inset-0 bg-grid-pattern opacity-5" />
       <div className="container mx-auto px-4 py-20 lg:py-32">
         <div className="text-center max-w-5xl mx-auto">

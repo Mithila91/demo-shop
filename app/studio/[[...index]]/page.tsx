@@ -1,6 +1,7 @@
+/* eslint-disable react/display-name */
+/* eslint-disable @typescript-eslint/no-require-imports */
 'use client'
 
-import { NextStudio } from 'next-sanity/studio'
 import dynamic from 'next/dynamic'
 
 // Dynamic import to prevent SSR issues and reduce recompilation

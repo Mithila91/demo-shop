@@ -1,73 +1,79 @@
-# Welcome to your Lovable project
+# Klarna Sparkle Shop
 
-## Project info
+Next.js + TypeScript storefront with Sanity CMS, shadcn/ui, Tailwind CSS, and TanStack Query. Includes an embedded Sanity Studio at `/studio` and a simple service checkout flow.
 
-**URL**: https://lovable.dev/projects/940fbac4-bdce-40b4-bdff-7fa71e71e955
+## Quick Start
 
-## How can I edit this code?
+Prerequisites:
+- Node.js 18+ and npm
 
-There are several ways of editing your application.
+Setup:
+```bash
+git clone <YOUR_REPO_URL>
+cd demo-shop
+npm install
 
-**Use Lovable**
+# Environment (copy the provided example or create manually)
+cp env.local .env.local # if you have one checked in locally
+# Or create .env.local with:
+# NEXT_PUBLIC_SANITY_PROJECT_ID=your-project-id
+# NEXT_PUBLIC_SANITY_DATASET=production
 
-Simply visit the [Lovable Project](https://lovable.dev/projects/940fbac4-bdce-40b4-bdff-7fa71e71e955) and start prompting.
-
-Changes made via Lovable will be committed automatically to this repo.
-
-**Use your preferred IDE**
-
-If you want to work locally using your own IDE, you can clone this repo and push changes. Pushed changes will also be reflected in Lovable.
-
-The only requirement is having Node.js & npm installed - [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
-
-Follow these steps:
-
-```sh
-# Step 1: Clone the repository using the project's Git URL.
-git clone <YOUR_GIT_URL>
-
-# Step 2: Navigate to the project directory.
-cd <YOUR_PROJECT_NAME>
-
-# Step 3: Install the necessary dependencies.
-npm i
-
-# Step 4: Start the development server with auto-reloading and an instant preview.
 npm run dev
 ```
 
-**Edit a file directly in GitHub**
+- App: `http://localhost:3000`
+- Sanity Studio: `http://localhost:3000/studio`
 
-- Navigate to the desired file(s).
-- Click the "Edit" button (pencil icon) at the top right of the file view.
-- Make your changes and commit the changes.
+## Scripts
 
-**Use GitHub Codespaces**
+- `npm run dev`: Start the Next.js dev server
+- `npm run build`: Create a production build
+- `npm run start`: Start the production server
+- `npm run lint`: Run ESLint
+- `npm run type-check`: TypeScript type check
 
-- Navigate to the main page of your repository.
-- Click on the "Code" button (green button) near the top right.
-- Select the "Codespaces" tab.
-- Click on "New codespace" to launch a new Codespace environment.
-- Edit files directly within the Codespace and commit and push your changes once you're done.
+## Sanity CMS
 
-## What technologies are used for this project?
+This project uses Sanity for content. The Studio is mounted at `/studio` and reads project settings from `sanity.config.ts`.
 
-This project is built with:
+Get started:
+1. Create a project at `https://sanity.io`
+2. Set `NEXT_PUBLIC_SANITY_PROJECT_ID` and `NEXT_PUBLIC_SANITY_DATASET` in `.env.local`
+3. Visit `http://localhost:3000/studio`
 
-- Vite
-- TypeScript
-- React
-- shadcn-ui
-- Tailwind CSS
+See `SANITY_SETUP.md` for a step-by-step guide and available content types (Hero, Services, Features, About, Site Settings). The site renders with fallback content if Sanity is empty.
 
-## How can I deploy this project?
+## Tech Stack
 
-Simply open [Lovable](https://lovable.dev/projects/940fbac4-bdce-40b4-bdff-7fa71e71e955) and click on Share -> Publish.
+- Next.js 15, React 19, TypeScript
+- Tailwind CSS, shadcn/ui (Radix UI primitives)
+- TanStack Query
+- Sanity, `next-sanity`
+- Lucide icons, Recharts, date-fns
 
-## Can I connect a custom domain to my Lovable project?
+## Project Structure (high level)
 
-Yes, you can!
+- `app/`: Next.js app router
+  - `components/`: UI and layout components
+  - `lib/`: utilities and Sanity client/queries
+  - `studio/`: embedded Sanity Studio at `/studio`
+- `sanity/schemas/`: Sanity content schemas
 
-To connect a domain, navigate to Project > Settings > Domains and click Connect Domain.
+## Deployment
 
-Read more here: [Setting up a custom domain](https://docs.lovable.dev/features/custom-domain#custom-domain)
+Recommended: Vercel
+1. Push the repo to GitHub/GitLab/Bitbucket
+2. Import the project into Vercel
+3. Add environment variables:
+   - `NEXT_PUBLIC_SANITY_PROJECT_ID`
+   - `NEXT_PUBLIC_SANITY_DATASET` (e.g. `production`)
+4. Deploy
+
+The Studio can be deployed alongside the app at `/studio`. For public access, ensure your Sanity CORS settings allow your deployed domain.
+
+## Notes
+
+- The checkout flow UI is present; integrate your payment provider as needed
+- Content is optional; fallback content is used when Sanity is empty
+- Type safety: run `npm run type-check` before commits

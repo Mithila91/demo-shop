@@ -2,7 +2,6 @@ import { service } from './service'
 import { hero } from './hero'
 import { feature } from './feature'
 import { aboutSection } from './aboutSection'
-import { siteSettings } from './siteSettings'
 
 export const schemaTypes = [
   // Content types
@@ -10,7 +9,4 @@ export const schemaTypes = [
   service,
   feature,
   aboutSection,
-  
-  // Settings
-  siteSettings,
 ]
