@@ -1,12 +1,13 @@
-import { getHero, getServices, getFeatures, getAboutSection } from "./lib/sanity"
+import { getHero, getServices, getFeatures, getAboutSection, getFeaturedProducts } from "./lib/sanity"
 import HomeClient from "./HomeClient"
 
 export default async function HomePage() {
-  const [heroData, servicesData, featuresData, aboutData] = await Promise.all([
+  const [heroData, servicesData, featuresData, aboutData, featuredProducts] = await Promise.all([
     getHero(),
     getServices(),
     getFeatures(),
-    getAboutSection()
+    getAboutSection(),
+    getFeaturedProducts()
   ])
 
   return (
@@ -15,6 +16,7 @@ export default async function HomePage() {
       servicesData={servicesData}
       featuresData={featuresData}
       aboutData={aboutData}
+      featuredProducts={featuredProducts}
     />
   )
 }

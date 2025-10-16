@@ -4,7 +4,6 @@
 
 import dynamic from 'next/dynamic'
 
-// Dynamic import to prevent SSR issues and reduce recompilation
 const StudioComponent = dynamic(() => import('../../../sanity.config').then(mod => {
   const { NextStudio } = require('next-sanity/studio')
   return () => <NextStudio config={mod.default} />

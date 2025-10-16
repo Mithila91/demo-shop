@@ -4,14 +4,16 @@ import { Toaster } from "@/app/components/ui/toaster"
 import { Toaster as Sonner } from "@/app/components/ui/sonner"
 import { TooltipProvider } from "@/app/components/ui/tooltip"
 import { QueryProvider } from '@/app/components/providers/QueryProvider'
+import { CartProvider } from '@/app/context/CartContext'
+import { Navigation } from '@/app/components/layout/Navigation'
 import './globals.css'
 
 const inter = Inter({ subsets: ['latin'] })
 
 export const metadata: Metadata = {
-  title: 'TechRescue - IT Support Services',
-  description: 'Professional IT support services for home and business. Fast, reliable, and affordable solutions.',
-  keywords: 'IT support, computer repair, tech rescue, home IT, business IT',
+  title: 'Demo Shop - E-commerce Store',
+  description: 'Modern e-commerce store with amazing products and great prices.',
+  keywords: 'e-commerce, shop, products, online store',
 }
 
 export default function RootLayout({
@@ -23,11 +25,14 @@ export default function RootLayout({
     <html lang="sv">
       <body className={inter.className}>
         <QueryProvider>
-          <TooltipProvider>
-            {children}
-            <Toaster />
-            <Sonner />
-          </TooltipProvider>
+          <CartProvider>
+            <TooltipProvider>
+              <Navigation />
+              {children}
+              <Toaster />
+              <Sonner />
+            </TooltipProvider>
+          </CartProvider>
         </QueryProvider>
       </body>
     </html>

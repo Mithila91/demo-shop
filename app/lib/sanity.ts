@@ -18,6 +18,98 @@ export const queries = {
   services: `*[_type == "service"] | order(order asc)`,
   features: `*[_type == "feature"] | order(order asc)`,
   aboutSection: `*[_type == "aboutSection"][0]`,
+  products: `*[_type == "product" && status == "published"] | order(publishedAt desc) {
+    _id,
+    title,
+    slug,
+    description,
+    price,
+    compareAtPrice,
+    sku,
+    category->{name, slug},
+    images[]{
+      asset->{url},
+      alt
+    },
+    stock,
+    trackInventory,
+    featured,
+    tags,
+    status
+  }`,
+  featuredProducts: `*[_type == "product" && status == "published" && featured == true] | order(publishedAt desc) {
+    _id,
+    title,
+    slug,
+    description,
+    price,
+    compareAtPrice,
+    sku,
+    category->{name, slug},
+    images[]{
+      asset->{url},
+      alt
+    },
+    stock,
+    trackInventory,
+    featured,
+    tags,
+    status
+  }`,
+  productBySlug: `*[_type == "product" && slug.current == $slug && status == "published"][0] {
+    _id,
+    title,
+    slug,
+    description,
+    price,
+    compareAtPrice,
+    sku,
+    category->{name, slug},
+    images[]{
+      asset->{url},
+      alt
+    },
+    stock,
+    trackInventory,
+    featured,
+    tags,
+    specifications,
+    variants,
+    seo,
+    status
+  }`,
+  categories: `*[_type == "category"] | order(order asc) {
+    _id,
+    name,
+    slug,
+    description,
+    image{
+      asset->{url},
+      alt
+    },
+    parent->{name, slug},
+    featured,
+    order
+  }`,
+  productsByCategory: `*[_type == "product" && status == "published" && category->slug.current == $categorySlug] | order(publishedAt desc) {
+    _id,
+    title,
+    slug,
+    description,
+    price,
+    compareAtPrice,
+    sku,
+    category->{name, slug},
+    images[]{
+      asset->{url},
+      alt
+    },
+    stock,
+    trackInventory,
+    featured,
+    tags,
+    status
+  }`
 }
 
 // Type definitions
@@ -53,6 +145,77 @@ export interface Service {
   slug: {
     current: string
   }
+}
+
+export interface Product {
+  _id: string
+  title: string
+  slug: {
+    current: string
+  }
+  description: string
+  price: number
+  compareAtPrice?: number
+  sku: string
+  category: {
+    name: string
+    slug: {
+      current: string
+    }
+  }
+  images: Array<{
+    asset: {
+      url: string
+    }
+    alt: string
+  }>
+  stock: number
+  trackInventory: boolean
+  featured: boolean
+  tags?: string[]
+  specifications?: Array<{
+    name: string
+    value: string
+  }>
+  variants?: Array<{
+    name: string
+    sku: string
+    price?: number
+    stock?: number
+    image?: {
+      asset: {
+        url: string
+      }
+    }
+  }>
+  seo?: {
+    metaTitle?: string
+    metaDescription?: string
+  }
+  status: 'draft' | 'published' | 'archived'
+}
+
+export interface Category {
+  _id: string
+  name: string
+  slug: {
+    current: string
+  }
+  description?: string
+  image?: {
+    asset: {
+      url: string
+    }
+    alt: string
+  }
+  parent?: {
+    name: string
+    slug: {
+      current: string
+    }
+  }
+  featured: boolean
+  order: number
 }
 
 export interface Feature {
@@ -122,5 +285,51 @@ export async function getSiteSettings(): Promise<SiteSettings | null> {
     return null
   } catch (error) {
     return null
+  }
+}
+
+// Product data fetching functions
+export async function getProducts(): Promise<Product[]> {
+  try {
+    return await client.fetch(queries.products)
+  } catch (error) {
+    console.error('Error fetching products data:', error)
+    return []
+  }
+}
+
+export async function getFeaturedProducts(): Promise<Product[]> {
+  try {
+    return await client.fetch(queries.featuredProducts)
+  } catch (error) {
+    console.error('Error fetching featured products data:', error)
+    return []
+  }
+}
+
+export async function getProductBySlug(slug: string): Promise<Product | null> {
+  try {
+    return await client.fetch(queries.productBySlug, { slug })
+  } catch (error) {
+    console.error('Error fetching product data:', error)
+    return null
+  }
+}
+
+export async function getCategories(): Promise<Category[]> {
+  try {
+    return await client.fetch(queries.categories)
+  } catch (error) {
+    console.error('Error fetching categories data:', error)
+    return []
+  }
+}
+
+export async function getProductsByCategory(categorySlug: string): Promise<Product[]> {
+  try {
+    return await client.fetch(queries.productsByCategory, { categorySlug })
+  } catch (error) {
+    console.error('Error fetching products by category:', error)
+    return []
   }
 }
