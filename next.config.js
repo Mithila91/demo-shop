@@ -11,7 +11,6 @@ const nextConfig = {
   eslint: {
     ignoreDuringBuilds: false,
   },
-  outputFileTracingRoot: '/Users/macbook/Mithila/klarna-sparkle-shop',
   // Exclude studio from hot reloading to prevent constant rebuilds
   webpack: (config, { dev, isServer }) => {
     if (dev && !isServer) {

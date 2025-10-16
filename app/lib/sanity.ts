@@ -340,15 +340,7 @@ export async function getSiteSettings(): Promise<SiteSettings | null> {
 // Product data fetching functions
 export async function getProducts(): Promise<Product[]> {
   try {
-    const products = await client.fetch(queries.products)
-    console.log('Published products found:', products.length)
-    
-    // Debug: Also check all products regardless of status
-    const allProducts = await client.fetch(queries.allProducts)
-    console.log('All products found:', allProducts.length)
-    console.log('Product statuses:', allProducts.map((p: any) => ({ title: p.title, status: p.status })))
-    
-    return products
+    return await client.fetch(queries.products)
   } catch (error) {
     console.error('Error fetching products data:', error)
     return []

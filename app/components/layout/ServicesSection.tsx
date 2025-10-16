@@ -7,10 +7,6 @@ interface ServicesSectionProps {
 }
 
 export function ServicesSection({ services, servicesSectionData }: ServicesSectionProps) {
-  // Debug: Log whether we're using Sanity data or fallback
-  console.log('ServicesSection - services from Sanity:', services)
-  console.log('ServicesSection - servicesSectionData from Sanity:', servicesSectionData)
-  
   // Fallback data if no Sanity data is available - TechHub e-commerce services
   const fallbackServices: Service[] = [
     {
@@ -98,22 +94,6 @@ export function ServicesSection({ services, servicesSectionData }: ServicesSecti
             />
           ))}
         </div>
-        
-        {/* Debug indicator */}
-        {!servicesSectionData && (
-          <div className="text-center mt-8 p-4 bg-yellow-100 rounded-lg">
-            <p className="text-sm text-yellow-800">
-              ⚠️ Visar fallback-data för Section Content - Lägg till Services Section i Sanity CMS
-            </p>
-          </div>
-        )}
-        {!services && (
-          <div className="text-center mt-4 p-4 bg-yellow-100 rounded-lg">
-            <p className="text-sm text-yellow-800">
-              ⚠️ Visar fallback-data för Service Cards - Lägg till Service i Sanity CMS
-            </p>
-          </div>
-        )}
       </div>
     </section>
   )

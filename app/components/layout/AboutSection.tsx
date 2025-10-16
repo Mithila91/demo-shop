@@ -6,9 +6,6 @@ interface AboutSectionProps {
 }
 
 export function AboutSection({ aboutData }: AboutSectionProps) {
-  // Debug: Log whether we're using Sanity data or fallback
-  console.log('AboutSection - aboutData from Sanity:', aboutData)
-  
   // Fallback data if no Sanity data is available - TechHub e-commerce theme
   const fallbackData: AboutSectionType = {
     title: "Varför handla hos TechHub?",

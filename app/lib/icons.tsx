@@ -15,7 +15,7 @@ export function DynamicIcon({ name, className, size }: DynamicIconProps) {
   const iconName = name.charAt(0).toUpperCase() + name.slice(1) as IconName
   
   // Get the icon component from Lucide
-  const IconComponent = LucideIcons[iconName]
+  const IconComponent = LucideIcons[iconName] as React.ComponentType<{ className?: string; size?: number }>
   
   if (!IconComponent) {
     // Fallback to a default icon if the specified one doesn't exist

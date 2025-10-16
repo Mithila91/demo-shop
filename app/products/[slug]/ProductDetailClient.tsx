@@ -1,3 +1,5 @@
+'use client'
+
 import { useState } from 'react'
 import { Product } from '@/app/lib/sanity'
 import { useCart } from '@/app/context/CartContext'
