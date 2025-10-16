@@ -16,9 +16,44 @@ export const client = createClient({
 export const queries = {
   hero: `*[_type == "hero"][0]`,
   services: `*[_type == "service"] | order(order asc)`,
+  servicesSection: `*[_type == "servicesSection"][0] {
+    title,
+    description
+  }`,
   features: `*[_type == "feature"] | order(order asc)`,
-  aboutSection: `*[_type == "aboutSection"][0]`,
-  products: `*[_type == "product" && status == "published"] | order(publishedAt desc) {
+  aboutSection: `*[_type == "aboutSection"][0] {
+    title,
+    description,
+    benefits[] {
+      title,
+      description,
+      icon
+    },
+    promiseBox {
+      title,
+      promises[]
+    }
+  }`,
+  products: `*[_type == "product" && (status == "published" || status == "draft")] | order(publishedAt desc) {
+    _id,
+    title,
+    slug,
+    description,
+    price,
+    compareAtPrice,
+    sku,
+    category->{name, slug},
+    images[]{
+      asset->{url},
+      alt
+    },
+    stock,
+    trackInventory,
+    featured,
+    tags,
+    status
+  }`,
+  allProducts: `*[_type == "product"] | order(publishedAt desc) {
     _id,
     title,
     slug,
@@ -147,6 +182,11 @@ export interface Service {
   }
 }
 
+export interface ServicesSection {
+  title: string
+  description: string
+}
+
 export interface Product {
   _id: string
   title: string
@@ -262,6 +302,15 @@ export async function getServices(): Promise<Service[]> {
   }
 }
 
+export async function getServicesSection(): Promise<ServicesSection | null> {
+  try {
+    return await client.fetch(queries.servicesSection)
+  } catch (error) {
+    console.error('Error fetching services section data:', error)
+    return null
+  }
+}
+
 export async function getFeatures(): Promise<Feature[]> {
   try {
     return await client.fetch(queries.features)
@@ -291,7 +340,15 @@ export async function getSiteSettings(): Promise<SiteSettings | null> {
 // Product data fetching functions
 export async function getProducts(): Promise<Product[]> {
   try {
-    return await client.fetch(queries.products)
+    const products = await client.fetch(queries.products)
+    console.log('Published products found:', products.length)
+    
+    // Debug: Also check all products regardless of status
+    const allProducts = await client.fetch(queries.allProducts)
+    console.log('All products found:', allProducts.length)
+    console.log('Product statuses:', allProducts.map((p: any) => ({ title: p.title, status: p.status })))
+    
+    return products
   } catch (error) {
     console.error('Error fetching products data:', error)
     return []

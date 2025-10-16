@@ -10,7 +10,7 @@ interface ServiceCardProps {
   duration: string
   features: string[]
   popular?: boolean
-  onSelect: () => void
+  onSelect?: () => void
 }
 
 export function ServiceCard({ 
@@ -60,13 +60,19 @@ export function ServiceCard({
       </CardContent>
       
       <CardFooter>
-        <Button 
-          onClick={onSelect}
-          className="w-full" 
-          variant={popular ? "default" : "outline"}
-        >
-          Välj tjänst
-        </Button>
+        {onSelect ? (
+          <Button 
+            onClick={onSelect}
+            className="w-full" 
+            variant={popular ? "default" : "outline"}
+          >
+            Välj tjänst
+          </Button>
+        ) : (
+          <div className="w-full text-center text-sm text-muted-foreground py-2">
+            Ingår i vår service
+          </div>
+        )}
       </CardFooter>
     </Card>
   )

@@ -6,45 +6,56 @@ interface AboutSectionProps {
 }
 
 export function AboutSection({ aboutData }: AboutSectionProps) {
-  // Fallback data if no Sanity data is available
+  // Debug: Log whether we're using Sanity data or fallback
+  console.log('AboutSection - aboutData from Sanity:', aboutData)
+  
+  // Fallback data if no Sanity data is available - TechHub e-commerce theme
   const fallbackData: AboutSectionType = {
-    title: "Varför välja TechRescue?",
-    description: "Vi förstår hur frustrerande det kan vara när tekniken inte fungerar. Därför erbjuder vi snabb, pålitlig och prisvärd IT-support som fungerar.",
+    title: "Varför handla hos TechHub?",
+    description: "Vi är din pålitliga partner för de senaste teknikprodukterna. Med över 10 års erfarenhet levererar vi kvalitet, service och innovation till rätt pris.",
     benefits: [
       {
-        title: "Bred expertis",
-        description: "Från enkla datorproblem till komplexa nätverkslösningar - vi har kunskap inom alla områden av modern IT.",
-        icon: "computer"
+        title: "Handplockade produkter",
+        description: "Vårt expertteam testar och väljer endast de bästa teknikprodukterna från världens ledande tillverkare.",
+        icon: "star"
       },
       {
-        title: "Snabba lösningar", 
-        description: "Majoriteten av alla problem löser vi inom samma dag. Akut support finns tillgänglig dygnet runt.",
-        icon: "zap"
+        title: "Snabb leverans", 
+        description: "Beställ före 15:00 så skickas din order samma dag. Fri frakt på alla köp över 500 kr.",
+        icon: "truck"
       },
       {
-        title: "Trygg hantering",
-        description: "All data hanteras med största säkerhet. Vi är GDPR-certifierade och arbetar enligt branschens högsta säkerhetsstandarder.",
+        title: "Trygg handel",
+        description: "SSL-krypterad betalning, 2 års garanti och 30 dagars öppet köp. Din trygghet är vår prioritet.",
         icon: "shield"
       }
     ],
     promiseBox: {
-      title: "Vårt löfte till dig",
+      title: "Vår garanti till dig",
       promises: [
-        "Fast pris - inga dolda kostnader",
-        "30 dagars garanti på alla reparationer", 
-        "Kostnadsfri konsultation och offert",
-        "Support även efter avslutad tjänst"
+        "2 års garanti på alla produkter",
+        "30 dagars öppet köp - inga frågor ställs", 
+        "Fri frakt och retur över 500 kr",
+        "Experthjälp och support även efter köpet"
       ]
     }
   }
 
   const data = aboutData || fallbackData
+  const isUsingFallback = !aboutData
 
   return (
     <section className="py-20 bg-muted/20">
       <div className="container mx-auto px-4">
         <div className="max-w-6xl mx-auto">
           <header className="text-center mb-16">
+            {/* Debug indicator - remove in production */}
+            {isUsingFallback && (
+              <div className="inline-block bg-yellow-100 text-yellow-800 px-3 py-1 rounded-full text-sm mb-4">
+                🔧 Visar fallback-data (Sanity ej kopplad)
+              </div>
+            )}
+            
             <h2 className="text-3xl lg:text-4xl font-bold mb-6">
               {data.title}
             </h2>

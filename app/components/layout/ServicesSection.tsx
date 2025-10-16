@@ -1,93 +1,119 @@
-'use client'
-
 import { ServiceCard } from "@/app/components/ServiceCard"
-import { Service } from "@/app/lib/sanity"
+import { Service, ServicesSection as ServicesSectionType } from "@/app/lib/sanity"
 
 interface ServicesSectionProps {
-  services?: Service[]
-  onServiceSelect: (service: Service) => void
+  services?: Service[] | null
+  servicesSectionData?: ServicesSectionType | null
 }
 
-export function ServicesSection({ services, onServiceSelect }: ServicesSectionProps) {
-  // Fallback data if no Sanity data is available
+export function ServicesSection({ services, servicesSectionData }: ServicesSectionProps) {
+  // Debug: Log whether we're using Sanity data or fallback
+  console.log('ServicesSection - services from Sanity:', services)
+  console.log('ServicesSection - servicesSectionData from Sanity:', servicesSectionData)
+  
+  // Fallback data if no Sanity data is available - TechHub e-commerce services
   const fallbackServices: Service[] = [
     {
       _id: '1',
-      title: "Akut IT-Support",
-      description: "Snabb hjälp när din teknik krånglar. Vi löser problemet på plats eller via fjärranslutning.",
-      price: "695 kr",
-      duration: "1-3 timmar",
+      title: "Expressfrakt",
+      description: "Få dina produkter levererade samma dag. Perfect för akuta teknikbehov.",
+      price: "Från 99 kr",
+      duration: "Samma dag",
       features: [
-        "Samma dag service",
-        "På plats eller fjärranslutning", 
-        "Alla vanliga IT-problem",
-        "Ingen startkostnad"
+        "Leverans samma dag",
+        "Spårning i realtid", 
+        "SMS-notifiering",
+        "Säker förpackning"
       ],
       popular: true,
       order: 1,
-      slug: { current: 'akut-it-support' }
+      slug: { current: 'expressfrakt' }
     },
     {
       _id: '2',
-      title: "Datorservice & Reparation",
-      description: "Fullständig service av din dator. Vi fixar hårdvara, installerar program och optimerar prestanda.",
-      price: "495 kr",
-      duration: "2-5 dagar",
+      title: "Teknisk Support",
+      description: "Få hjälp med installation och setup av dina nya produkter från våra experter.",
+      price: "Gratis",
+      duration: "24/7",
       features: [
-        "Hårdvaru- och mjukvaruservice",
-        "Prestandaoptimering",
-        "Viruskontroll & säkerhet",
-        "Gratis hämtning & leverans"
+        "Installation & setup",
+        "Teknisk felsökning",
+        "Produktvägledning",
+        "Chat, telefon & e-post"
       ],
       popular: false,
       order: 2,
-      slug: { current: 'datorservice-reparation' }
+      slug: { current: 'teknisk-support' }
     },
     {
       _id: '3',
-      title: "Hemmanätverk & WiFi",
-      description: "Installation och optimering av hemmanätverk. Få bästa möjliga WiFi-täckning i hela hemmet.",
-      price: "895 kr",
-      duration: "2-4 timmar",
+      title: "Utökad Garanti",
+      description: "Förläng garantin på dina produkter med upp till 3 år extra skydd.",
+      price: "Från 149 kr",
+      duration: "Upp till 5 år",
       features: [
-        "WiFi-täckning hela hemmet",
-        "Säker nätverkskonfiguration", 
-        "Smart hem-integration",
-        "3 månaders support inkluderat"
+        "Utökad garantitid",
+        "Snabb reparation", 
+        "Ersättningsprodukt",
+        "Inga dolda avgifter"
       ],
       popular: false,
       order: 3,
-      slug: { current: 'hemmanatwerk-wifi' }
+      slug: { current: 'utokad-garanti' }
     }
   ]
 
   const data = services && services.length > 0 ? services : fallbackServices
+  
+  // Fallback section data if no Sanity data is available
+  const fallbackSectionData: ServicesSectionType = {
+    title: "Våra Tjänster",
+    description: "Vi erbjuder kompletterande tjänster för en ännu bättre shoppingupplevelse. Allt för att göra ditt köp så smidigt som möjligt."
+  }
+  
+  const sectionData = servicesSectionData || fallbackSectionData
 
   return (
-    <section id="services" className="container mx-auto px-4 py-16">
-      <header className="text-center mb-12">
-        <h2 className="text-3xl lg:text-4xl font-bold mb-4">
-          Våra Tjänster
-        </h2>
-        <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-          Vi erbjuder kompletta IT-lösningar för alla dina tekniska behov. 
-          Välj den tjänst som passar dig bäst.
-        </p>
-      </header>
+    <section id="services" className="py-20 bg-muted/20">
+      <div className="container mx-auto px-4">
+        <header className="text-center mb-12">
+          <h2 className="text-3xl lg:text-4xl font-bold mb-4">
+            {sectionData.title}
+          </h2>
+          <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+            {sectionData.description}
+          </p>
+        </header>
 
-      <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
-        {data.map((service) => (
-          <ServiceCard
-            key={service._id}
-            title={service.title}
-            description={service.description}
-            price={service.price}
-            duration={service.duration}
-            features={service.features}
-            popular={service.popular}
-            onSelect={() => onServiceSelect(service)}
-          />
-        ))}
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
+          {data.map((service) => (
+            <ServiceCard
+              key={service._id}
+              title={service.title}
+              description={service.description}
+              price={service.price}
+              duration={service.duration}
+              features={service.features}
+              popular={service.popular}
+            />
+          ))}
+        </div>
+        
+        {/* Debug indicator */}
+        {!servicesSectionData && (
+          <div className="text-center mt-8 p-4 bg-yellow-100 rounded-lg">
+            <p className="text-sm text-yellow-800">
+              ⚠️ Visar fallback-data för Section Content - Lägg till Services Section i Sanity CMS
+            </p>
+          </div>
+        )}
+        {!services && (
+          <div className="text-center mt-4 p-4 bg-yellow-100 rounded-lg">
+            <p className="text-sm text-yellow-800">
+              ⚠️ Visar fallback-data för Service Cards - Lägg till Service i Sanity CMS
+            </p>
+          </div>
+        )}
       </div>
     </section>
   )

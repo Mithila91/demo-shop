@@ -9,22 +9,22 @@ interface HeaderProps {
 }
 
 export function Header({ heroData }: HeaderProps) {
-  // Fallback data if no Sanity data is available
+  // Fallback data if no Sanity data is available - Tech & Gadgets theme
   const fallbackData: Hero = {
-    title: "TechRescue",
-    subtitle: "Vi räddar din teknik när den krånglar",
-    description: "Över 15 års erfarenhet av IT-support för hem och företag. Våra certifierade tekniker löser dina problem snabbt och effektivt - på plats, via fjärranslutning eller i vår verkstad. Ingen teknisk utmaning är för stor eller för liten.",
+    title: "TechHub",
+    subtitle: "Din destination för de senaste teknikprodukterna",
+    description: "Upptäck de hetaste gadgets, smartphones, laptops och smart home-produkter. Alltid bästa pris, snabb leverans och 2 års garanti. Välkommen till framtidens teknik.",
     badge: {
-      text: "Tillgänglig 24/7 - Snabb & Professionell IT-Support",
+      text: "🔥 Cyber Week - Upp till 50% rabatt på utvalda produkter",
       icon: "zap"
     },
     primaryButton: {
-      text: "Se våra tjänster",
+      text: "Shoppa nu",
       action: "scroll-services"
     },
     secondaryButton: {
-      text: "Ring för akut hjälp: 08-123 456 78",
-      phoneNumber: "08-123 456 78"
+      text: "Se erbjudanden",
+      phoneNumber: ""
     }
   }
 
@@ -32,8 +32,14 @@ export function Header({ heroData }: HeaderProps) {
 
   const handlePrimaryClick = () => {
     if (data.primaryButton?.action === 'scroll-services') {
-      const servicesSection = document.getElementById('services')
-      servicesSection?.scrollIntoView({ behavior: 'smooth' })
+      // Scroll to featured products instead
+      const featuredSection = document.querySelector('[data-section="featured-products"]')
+      if (featuredSection) {
+        featuredSection.scrollIntoView({ behavior: 'smooth' })
+      } else {
+        // Fallback to products page
+        window.location.href = '/products'
+      }
     } else if (data.primaryButton?.url) {
       window.open(data.primaryButton.url, '_blank')
     }
@@ -42,6 +48,9 @@ export function Header({ heroData }: HeaderProps) {
   const handleSecondaryClick = () => {
     if (data.secondaryButton?.phoneNumber) {
       window.location.href = `tel:${data.secondaryButton.phoneNumber}`
+    } else {
+      // Fallback to categories or special offers
+      window.location.href = '/categories'
     }
   }
 

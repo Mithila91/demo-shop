@@ -14,8 +14,8 @@ export function Navigation() {
     { href: '/', label: 'Hem' },
     { href: '/products', label: 'Produkter' },
     { href: '/categories', label: 'Kategorier' },
-    { href: '/about', label: 'Om oss' },
-    { href: '/contact', label: 'Kontakt' },
+    { href: '/deals', label: 'Erbjudanden' },
+    { href: '/support', label: 'Support' },
   ]
 
   return (
@@ -24,11 +24,13 @@ export function Navigation() {
         <div className="container mx-auto px-4">
           <div className="flex h-16 items-center justify-between">
             {/* Logo */}
-            <Link href="/" className="flex items-center space-x-2">
-              <div className="h-8 w-8 rounded-lg bg-primary flex items-center justify-center">
-                <span className="text-primary-foreground font-bold">DS</span>
+            <Link href="/" className="flex items-center space-x-2 font-bold text-xl">
+              <div className="w-8 h-8 bg-primary rounded-lg flex items-center justify-center">
+                <span className="text-white text-lg">TR</span>
               </div>
-              <span className="font-bold text-xl">Demo Shop</span>
+              <span className="text-foreground">
+                TechRescue
+              </span>
             </Link>
 
             {/* Desktop Navigation */}
